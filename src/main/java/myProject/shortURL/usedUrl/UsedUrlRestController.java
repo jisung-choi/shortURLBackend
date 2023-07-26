@@ -10,6 +10,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
+//(origins ="https://jisung-choi.github.io")
 @RequestMapping("/api/uu")
 public class UsedUrlRestController {
     
@@ -18,14 +20,12 @@ public class UsedUrlRestController {
 
     //returns original url
     //replace below with github page link
-    @CrossOrigin(origins ="http://localhost:4200")
     @GetMapping("/get/{id}")
     public UsedUrl findBy_id(@PathVariable String id){
         return usedUrlRepository.findBy_id(id);
     }
 
     //Needs to be tested
-    @CrossOrigin(origins ="http://localhost:4200")
     @PostMapping("/register")
     public UsedUrl save(@RequestBody UsedUrl usedUrl){
         System.out.println("save is called" + usedUrl.get_id());
@@ -35,7 +35,6 @@ public class UsedUrlRestController {
 
     @Scheduled(cron = "0 0 4 1 * ?") // Runs at 04:00 on the 1st day of each month
     public void purgeExpiredDocuments() {
-        System.out.println("Purge executed!!!!!!!!!!!!");
         //collect list of dates
         List<String> datesList = new ArrayList<>();
         LocalDate currentDate = LocalDate.now();
