@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface UsedUrlRepository extends MongoRepository<UsedUrl, String>{
     UsedUrl findBy_id(String _id);
     UsedUrl save(UsedUrl url);
+    Long deleteByexpirationDate(String date);
 }
