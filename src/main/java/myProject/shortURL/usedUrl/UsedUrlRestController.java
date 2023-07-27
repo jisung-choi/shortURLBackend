@@ -10,8 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
-//(origins ="https://jisung-choi.github.io")
+@CrossOrigin(origins ="https://jisung-choi.github.io")
 @RequestMapping("/api/uu")
 public class UsedUrlRestController {
     

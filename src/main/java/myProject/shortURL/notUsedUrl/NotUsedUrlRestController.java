@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
-//(origins ="https://jisung-choi.github.io")
+@CrossOrigin(origins ="https://jisung-choi.github.io")
 @RequestMapping("/api/nuu")
 public class NotUsedUrlRestController {
     
