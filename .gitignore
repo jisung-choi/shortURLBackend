@@ -38,3 +38,5 @@ out/
 
 *.properties
 !system.properties
+.env
+!application.properties
