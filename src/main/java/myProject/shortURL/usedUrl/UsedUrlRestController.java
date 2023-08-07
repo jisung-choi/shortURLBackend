@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
+import myProject.shortURL.notUsedUrl.NotUsedUrl;
+import myProject.shortURL.notUsedUrl.NotUsedUrlRepository;
+
 @RestController
 @CrossOrigin(origins ="https://jisung-choi.github.io")
 @RequestMapping("/api/uu")
@@ -16,9 +19,9 @@ public class UsedUrlRestController {
     
     @Autowired
     private UsedUrlRepository usedUrlRepository;
+    @Autowired
+    private NotUsedUrlRepository notUsedUrlRepository;
 
-    //returns original url
-    //replace below with github page link
     @GetMapping("/get/{id}")
     public UsedUrl findBy_id(@PathVariable String id){
         return usedUrlRepository.findBy_id(id);
@@ -32,7 +35,7 @@ public class UsedUrlRestController {
         return usedUrl;
     }
 
-    @Scheduled(cron = "0 0 4 1 * ?") // Runs at 04:00 on the 1st day of each month
+    @Scheduled(cron = "0 55 14 7 8 ?") // Runs at 04:00 on the 1st day of each month
     public void purgeExpiredDocuments() {
         //collect list of dates
         List<String> datesList = new ArrayList<>();
@@ -45,8 +48,13 @@ public class UsedUrlRestController {
             oneMonthAgo = oneMonthAgo.plusDays(1);
         }
         //run deleteBy in forLoop
-        for (String date : datesList) {
-            usedUrlRepository.deleteByexpirationDate(date);
-        }
+        // for (String date : datesList) {
+        //     for(UsedUrl usedUrl: usedUrlRepository.findByexpirationDate(date)){
+        //         String id = usedUrl.get_id();
+        //         NotUsedUrl nuu = new NotUsedUrl(id);
+        //         notUsedUrlRepository.save(nuu);
+        //         usedUrlRepository.deleteBy_id(id);
+        //     }
+        // }
     }
 }

@@ -12,7 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface NotUsedUrlRepository extends MongoRepository<NotUsedUrl, String>{
     NotUsedUrl findBy_id(String _id);
     void deleteBy_id(String _id);
-    
+    NotUsedUrl save(NotUsedUrl url);
+
     @Aggregation(pipeline = { "{ $sample: { size: 1 } }" })
     NotUsedUrl findRandomDocument();
 }
