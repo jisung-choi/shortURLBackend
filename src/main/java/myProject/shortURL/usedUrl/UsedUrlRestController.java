@@ -35,7 +35,7 @@ public class UsedUrlRestController {
         return usedUrl;
     }
 
-    @Scheduled(cron = "0 55 14 7 8 ?") // Runs at 04:00 on the 1st day of each month
+    @Scheduled(cron = "0 0 04 1 * ?") // Runs at 04:00 on the 1st day of each month
     public void purgeExpiredDocuments() {
         //collect list of dates
         List<String> datesList = new ArrayList<>();
@@ -47,14 +47,15 @@ public class UsedUrlRestController {
             datesList.add(formattedDate);
             oneMonthAgo = oneMonthAgo.plusDays(1);
         }
-        //run deleteBy in forLoop
-        // for (String date : datesList) {
-        //     for(UsedUrl usedUrl: usedUrlRepository.findByexpirationDate(date)){
-        //         String id = usedUrl.get_id();
-        //         NotUsedUrl nuu = new NotUsedUrl(id);
-        //         notUsedUrlRepository.save(nuu);
-        //         usedUrlRepository.deleteBy_id(id);
-        //     }
-        // }
+        // run deleteBy in forLoop
+        for (String date : datesList) {
+            for(UsedUrl usedUrl: usedUrlRepository.findByexpirationDate(date)){
+                String id = usedUrl.get_id();
+                System.out.println("purge called:" + id);
+                NotUsedUrl nuu = new NotUsedUrl(id);
+                notUsedUrlRepository.save(nuu);
+                usedUrlRepository.deleteBy_id(id);
+            }
+        }
     }
 }

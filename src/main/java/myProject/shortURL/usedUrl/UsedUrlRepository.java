@@ -12,6 +12,6 @@ import java.util.*;
 public interface UsedUrlRepository extends MongoRepository<UsedUrl, String>{
     UsedUrl findBy_id(String _id);
     UsedUrl save(UsedUrl url);
-    // List<UsedUrl> findByexpirationDate(String date);
+    List<UsedUrl> findByexpirationDate(String date);
     void deleteBy_id(String id);
 }
